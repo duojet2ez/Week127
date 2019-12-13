@@ -22,7 +22,8 @@ public class cameraRotator : MonoBehaviour
     {
         if (GUI.Button(new Rect(10, 10, 150, 100), "RotateScreen"))
         {
-            transform.DORotate(new Vector3(0, 0, transform.eulerAngles.z + 90), rotTime, RotateMode.Fast);
+            transform.DORotate(new Vector3(0, 0, Mathf.Floor(transform.eulerAngles.z/90 + 1) * 90), rotTime, RotateMode.Fast);
+
         }
     }
 }
