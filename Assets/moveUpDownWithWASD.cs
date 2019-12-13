@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +7,14 @@ public class moveUpDownWithWASD : MonoBehaviour
 {
     public float speed;
 
-    // Start is called before the first frame update
-    void Start()
+    Vector2 currentRotation;
+
+    private void Awake()
+    {
+        cameraRotator.onRotate += handleRotationEvent;
+    }
+
+    private void handleRotationEvent(int desiredRotation)
     {
         
     }
