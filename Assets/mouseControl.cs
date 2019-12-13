@@ -16,20 +16,7 @@ public class mouseControl : MonoBehaviour
     void Update()
     {
 
-        // Use this for initialization
-       
-            if (Input.GetAxis("Mouse X") > 0)
-            {
-                transform.position += new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speed,
-                                           0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speed);
-            }
 
-            else if (Input.GetAxis("Mouse X") < 0)
-            {
-                transform.position += new Vector3(Input.GetAxisRaw("Mouse X") * Time.deltaTime * speed,
-                                           0.0f, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speed);
-            }
-        
 
     }
 }
