@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class cameraRotator : MonoBehaviour
 {
+    [SerializeField] float rotTime = 0.6f;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class cameraRotator : MonoBehaviour
     {
         if (GUI.Button(new Rect(10, 10, 150, 100), "RotateScreen"))
         {
-            transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z + 90);
+            transform.DORotate(new Vector3(0, 0, transform.eulerAngles.z + 90), rotTime, RotateMode.Fast);
         }
     }
 }
