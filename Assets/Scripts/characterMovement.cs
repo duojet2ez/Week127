@@ -18,8 +18,8 @@ public class characterMovement : MonoBehaviour
     #endregion
 
     #region Private Fields
-    Collider2D collider;
-
+    Collider2D col;
+    [SerializeField] float maxDistance = 20f;
     #endregion
 
     #region Public Methods
@@ -36,15 +36,24 @@ public class characterMovement : MonoBehaviour
 
     void Awake()
     {
-        collider = GetComponent<Collider2D>();
+        col = GetComponent<Collider2D>();
     }
  
     void FixedUpdate()
     {
-        Physics2D.Raycast();
+        var hit = Physics2D.Raycast(new Vector2(transform.position.x + (col.bounds.extents.x + col.offset.x) * transform.right.x,
+                                    transform.position.y), -transform.up, maxDistance)
+
+#if UNITY_EDITOR
+        Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * transform.right, -transform.up * maxDistance, Color.red); 
+#endif
+        if(hit)
+        {
+
+        }
     }
 
     #endregion
-    #endif
- 
+#endif
+
 }
