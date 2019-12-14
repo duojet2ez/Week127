@@ -5,6 +5,7 @@
  *
  */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,19 @@ public class characterMovement : MonoBehaviour
 {
     #region Public Fields
     public LayerMask groundLayer;
+
+    #region Events
+    public static event Action<onSoftEdgeArgs> onFallableEdge;
+    #endregion
+
     #endregion
 
     #region Private Fields
     Collider2D col;
     Rigidbody2D rb;
     SpriteRenderer characterRenderer;
+    [Range(0, 3)]
+    [SerializeField] int maxFallDown = 1;
     [SerializeField] float maxDistance = 20f;
     #endregion
 
@@ -56,7 +64,14 @@ public class characterMovement : MonoBehaviour
             Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * side * transform.right, -transform.up * hit.distance, Color.cyan);
             Debug.Log(hit.collider.gameObject.name);
 #endif
+            if (hit.distance > col.bounds.extents.y && hit.distance > maxFallDown + col.bounds.extents.y)
+            {
 
+            }
+            else
+            {
+
+            }
         }
         else
         {
@@ -73,3 +88,10 @@ public class characterMovement : MonoBehaviour
 #endif
 
 }
+
+public struct onSoftEdgeArgs
+{
+
+}
+
+public struct 

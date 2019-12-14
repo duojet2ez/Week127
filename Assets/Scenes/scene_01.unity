@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 1382141399}
   - component: {fileID: 1382141398}
   - component: {fileID: 1382141397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: guitarperson_nobackground_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +935,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cac65029b33fe4439547f8f66f4fa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  maxDistance: 5
 --- !u!1 &1789900441
 GameObject:
   m_ObjectHideFlags: 0
