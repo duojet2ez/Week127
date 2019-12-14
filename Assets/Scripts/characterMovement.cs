@@ -33,7 +33,7 @@ public class characterMovement : MonoBehaviour
     [SerializeField] float maxDistance = 20f;
 
     onSoftEdgeArgs fallableArgs = new onSoftEdgeArgs();
-    onHardEdgeArgs cliffArgs = new onHardEdgeArgs();
+    onHardEdgeArgs cliffArgs = new onHardEdgeArgs() { willDoSomething = false};
     #endregion
 
     #region Public Methods
@@ -92,10 +92,10 @@ public class characterMovement : MonoBehaviour
 
 public struct onSoftEdgeArgs
 {
-
+    
 }
 
 public struct onHardEdgeArgs
 {
-
+    public bool willDoSomething;
 }
