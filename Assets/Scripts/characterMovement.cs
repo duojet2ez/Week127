@@ -22,7 +22,7 @@ public class characterMovement : MonoBehaviour
     #endregion
 
 
-    #if false
+    #if true
     #region Unity API
 
     void Start()
