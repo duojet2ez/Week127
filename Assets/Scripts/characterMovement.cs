@@ -42,7 +42,7 @@ public class characterMovement : MonoBehaviour
     void FixedUpdate()
     {
         var hit = Physics2D.Raycast(new Vector2(transform.position.x + (col.bounds.extents.x + col.offset.x) * transform.right.x,
-                                    transform.position.y), -transform.up, maxDistance)
+                                    transform.position.y), -transform.up, maxDistance);
 
 #if UNITY_EDITOR
         Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * transform.right, -transform.up * maxDistance, Color.red); 
