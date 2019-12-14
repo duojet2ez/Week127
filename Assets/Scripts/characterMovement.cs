@@ -19,6 +19,7 @@ public class characterMovement : MonoBehaviour
 
     #region Events
     public static event Action<onSoftEdgeArgs> onFallableEdge;
+    public static event Action<onHardEdgeArgs> onCliff;
     #endregion
 
     #endregion
@@ -30,6 +31,9 @@ public class characterMovement : MonoBehaviour
     [Range(0, 3)]
     [SerializeField] int maxFallDown = 1;
     [SerializeField] float maxDistance = 20f;
+
+    onSoftEdgeArgs fallableArgs = new onSoftEdgeArgs();
+    onHardEdgeArgs cliffArgs = new onHardEdgeArgs();
     #endregion
 
     #region Public Methods
@@ -64,21 +68,18 @@ public class characterMovement : MonoBehaviour
             Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * side * transform.right, -transform.up * hit.distance, Color.cyan);
             Debug.Log(hit.collider.gameObject.name);
 #endif
-            if (hit.distance > col.bounds.extents.y && hit.distance > maxFallDown + col.bounds.extents.y)
+            if (hit.distance > col.bounds.extents.y && hit.distance < maxFallDown + col.bounds.extents.y)
             {
 
             }
-            else
-            {
 
-            }
         }
         else
         {
 #if UNITY_EDITOR
             Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * side * transform.right, -transform.up * maxDistance, Color.red);
 #endif
-
+            canMoveForward = false;
 
 
         }
@@ -94,4 +95,7 @@ public struct onSoftEdgeArgs
 
 }
 
-public struct 
+public struct onHardEdgeArgs
+{
+
+}
