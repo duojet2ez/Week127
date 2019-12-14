@@ -229,7 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3043209c64720af499cbf7209123b148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotTime: 0.5
+  rotationTime: 0.6
+  rotationStep: 45
 --- !u!1 &576444701
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1382141396}
   - component: {fileID: 1382141395}
-  - component: {fileID: 1382141399}
+  - component: {fileID: 1382141397}
   m_Layer: 0
   m_Name: guitarperson_nobackground_04
   m_TagString: Untagged
@@ -514,7 +515,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382141399
+--- !u!114 &1382141397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -523,10 +524,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1382141394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 066f0c0450db1e2468a08ae925271a1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 33dee94ff7e5c8244b25b23468c9961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
 --- !u!1 &1643192052
 GameObject:
   m_ObjectHideFlags: 0

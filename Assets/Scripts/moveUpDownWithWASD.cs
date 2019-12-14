@@ -19,12 +19,16 @@ public class moveUpDownWithWASD : MonoBehaviour
         
     }
 
+    private void OnDisable()
+    {
+        cameraRotator.onRotate -= handleRotationEvent;
+    }
+
     // Update is called once per frame
     void Update()
     {
         Vector3 inputVect = new Vector3();
         inputVect.x = Input.GetAxis("Horizontal");
-        inputVect.y = Input.GetAxis("Vertical");
         transform.position += inputVect * speed * Time.deltaTime;
         
         
