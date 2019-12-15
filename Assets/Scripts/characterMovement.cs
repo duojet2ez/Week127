@@ -20,6 +20,7 @@ public class characterMovement : MonoBehaviour
     #region Events
     public static event Action<onSoftEdgeArgs> onFallableEdge;
     public static event Action<onHardEdgeArgs> onCliff;
+    public static event Action<onSoftEdgeArgs> onWallHit;
     #endregion
 
     #endregion
@@ -32,7 +33,7 @@ public class characterMovement : MonoBehaviour
     [Range(0, 3)]
     [SerializeField] int maxFallDown = 1;
     [SerializeField] float maxDistance = 20f;
-    
+    [SerializeField, Range(1, 2)] float forwardMultiplier = 1.15f;
     [SerializeField, Range(0.1f, 0.4f)] float raycastDownLeeway  = 0.2f;
 
     onSoftEdgeArgs fallableArgs = new onSoftEdgeArgs() { willDoSomething = false};
@@ -54,7 +55,7 @@ public class characterMovement : MonoBehaviour
         {
             if (canMoveForward && Input.GetAxisRaw("Horizontal") != 0)
             {
-                transform.position = (transform.position + speed * Time.fixedDeltaTime * transform.right * currentSide);
+                rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * transform.right * currentSide);
             }
         }
         else
@@ -66,20 +67,20 @@ public class characterMovement : MonoBehaviour
     private void CheckGround()
     {
         int side = characterRenderer.flipX ? -1 : 1;
-        var hit = Physics2D.Raycast(new Vector2(transform.position.x + currentSide * (col.bounds.extents.x + col.offset.x * 0.995f),
-                                    transform.position.y), -transform.up, maxDistance, groundLayer);
+        var hit = Physics2D.Raycast(new Vector2(transform.position.x + currentSide * (col.bounds.extents.x * forwardMultiplier + col.offset.x),
+                                    transform.position.y + col.bounds.extents.y), -transform.up, maxDistance, groundLayer);
 
 
         if (hit)
         {
 #if UNITY_EDITOR
-            Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * currentSide * transform.right, -transform.up * hit.distance, Color.cyan);
+            Debug.DrawRay(transform.position + (col.bounds.extents.x *forwardMultiplier + col.offset.x ) * currentSide * transform.right + transform.up*col.bounds.extents.y, -transform.up * hit.distance, Color.red);
             Debug.Log(hit.collider.gameObject.name);
 #endif
 
-            if (hit.distance > col.bounds.extents.y + raycastDownLeeway)
+            if (hit.distance > col.bounds.size.y + raycastDownLeeway)
             {
-                if (hit.distance < maxFallDown + col.bounds.extents.y)
+                if (hit.distance < maxFallDown + col.bounds.size.y)
                 {
 #if UNITY_EDITOR
                     Debug.Log("onFallableGround");
@@ -114,7 +115,7 @@ public class characterMovement : MonoBehaviour
         else
         {
 #if UNITY_EDITOR
-            Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * currentSide * transform.right, -transform.up * maxDistance, Color.red);
+            Debug.DrawRay(transform.position + transform.up * col.bounds.extents.y+ (col.bounds.extents.x * forwardMultiplier + col.offset.x) * currentSide * transform.right, -transform.up * maxDistance, Color.red);
 #endif
             canMoveForward = false;
             onCliff?.Invoke(cliffArgs);
@@ -159,6 +160,7 @@ public class characterMovement : MonoBehaviour
 
 public class onSoftEdgeArgs
 {
+    public RaycastHit2D hit;
     public float timeToWait;
     public bool willDoSomething = false;
 
@@ -173,6 +175,7 @@ public class onHardEdgeArgs
 {
     public float timeToWait;
     public bool willDoSomething = false;
+    public RaycastHit2D hit;
 
     public void resetValues()
     {

@@ -191,7 +191,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 1, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -265,6 +265,15 @@ Tilemap:
     second:
       m_TileIndex: 43
       m_TileSpriteIndex: 43
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: 4, y: -8, z: 0}
+    second:
+      m_TileIndex: 42
+      m_TileSpriteIndex: 42
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -356,8 +365,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: e136ec2658220264ba84055605cfcc7c, type: 2}
   - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 455d0f124c26dfd4f99fa1f24e57a5ef, type: 2}
   m_TileSpriteArray:
@@ -445,12 +454,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: c85f2b468e04488419e8ce70ef4a4fc2, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: 9a636ac6a08843b48a6c450ea080b645, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data:
       e00: 1
       e01: 0
@@ -469,7 +478,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -584,7 +593,7 @@ Transform:
   m_GameObject: {fileID: 364349727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.45, y: -0.68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5625, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -602,6 +611,7 @@ GameObject:
   - component: {fileID: 530770007}
   - component: {fileID: 530770011}
   - component: {fileID: 530770010}
+  - component: {fileID: 530770012}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -644,7 +654,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5.4066153
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -687,8 +697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 20
-  m_RefResolutionX: 300
-  m_RefResolutionY: 240
+  m_RefResolutionX: 628
+  m_RefResolutionY: 470
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -708,6 +718,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationTime: 0.6
   rotationStep: 45
+--- !u!114 &530770012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530770006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96c6cf1bb8b8964e8b1b94278713f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &576444701
 GameObject:
   m_ObjectHideFlags: 0
