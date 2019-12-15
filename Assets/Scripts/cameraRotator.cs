@@ -9,6 +9,8 @@ public class cameraRotator : MonoBehaviour
     [Range(15f, 180f)]
     [SerializeField] int rotationStep = 90;
 
+    private Tween rotationTween;
+
     public static event Action<int> onRotate; 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +47,10 @@ public class cameraRotator : MonoBehaviour
     {
         onRotate?.Invoke(getNextRotationAngle());
         //dont change the offset 
-        transform.DORotate(new Vector3(0, 0, getNextRotationAngle()+0.0001f), rotationTime, RotateMode.Fast);
+        if (rotationTween == null || !rotationTween.IsPlaying())
+        {
+            rotationTween = transform.DORotate(new Vector3(0, 0, getNextRotationAngle() + 0.0001f), rotationTime, RotateMode.Fast);
+        }
 
     }
 }

@@ -90,12 +90,12 @@ public class characterMovement : MonoBehaviour
 
 }
 
-public struct onSoftEdgeArgs
+public class onSoftEdgeArgs
 {
     
 }
 
-public struct onHardEdgeArgs
+public class onHardEdgeArgs
 {
-    public bool willDoSomething;
+    public bool willDoSomething = false;
 }
