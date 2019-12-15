@@ -31,6 +31,8 @@ public class characterMovement : MonoBehaviour
     [Range(0, 3)]
     [SerializeField] int maxFallDown = 1;
     [SerializeField] float maxDistance = 20f;
+    
+    [SerializeField, Range(0.1f, 0.4f)] float raycastDownLeeway  = 0.2f;
 
     onSoftEdgeArgs fallableArgs = new onSoftEdgeArgs();
     onHardEdgeArgs cliffArgs = new onHardEdgeArgs() { willDoSomething = false};
@@ -68,9 +70,12 @@ public class characterMovement : MonoBehaviour
             Debug.DrawRay(transform.position + (col.bounds.extents.x + col.offset.x) * side * transform.right, -transform.up * hit.distance, Color.cyan);
             Debug.Log(hit.collider.gameObject.name);
 #endif
-            if (hit.distance > col.bounds.extents.y && hit.distance < maxFallDown + col.bounds.extents.y)
+            if (hit.distance > col.bounds.extents.y + raycastDownLeeway && hit.distance < maxFallDown + col.bounds.extents.y)
             {
+#if UNITY_EDITOR
+                Debug.Log("onFallableGround");
 
+#endif
             }
 
         }
