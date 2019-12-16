@@ -33,7 +33,7 @@ public class characterMovement : MonoBehaviour
     [Range(0, 3)]
     [SerializeField] int maxFallDown = 1;
     [SerializeField] float maxDistance = 20f;
-    [SerializeField, Range(1, 2)] float forwardMultiplier = 1.15f;
+    [SerializeField, Range(1, 2)] float forwardRaycastMultiplier = 1.15f;
     [SerializeField, Range(0.1f, 0.4f)] float raycastDownLeeway  = 0.2f;
 
     onSoftEdgeArgs fallableArgs = new onSoftEdgeArgs() { willDoSomething = false};
@@ -51,6 +51,12 @@ public class characterMovement : MonoBehaviour
     #region Private Methods
     private void MovePlayer()
     {
+        /*
+         
+        1 is left
+        -1 right
+         
+         */
         if (Input.GetAxisRaw("Horizontal") * currentSide >= 0)
         {
             if (canMoveForward && Input.GetAxisRaw("Horizontal") != 0)
@@ -67,14 +73,14 @@ public class characterMovement : MonoBehaviour
     private void CheckGround()
     {
         int side = characterRenderer.flipX ? -1 : 1;
-        var hit = Physics2D.Raycast(new Vector2(transform.position.x + currentSide * (col.bounds.extents.x * forwardMultiplier + col.offset.x),
+        var hit = Physics2D.Raycast(new Vector2(transform.position.x + currentSide * (col.bounds.extents.x * forwardRaycastMultiplier + col.offset.x),
                                     transform.position.y + col.bounds.extents.y), -transform.up, maxDistance, groundLayer);
 
 
         if (hit)
         {
 #if UNITY_EDITOR
-            Debug.DrawRay(transform.position + (col.bounds.extents.x *forwardMultiplier + col.offset.x ) * currentSide * transform.right + transform.up*col.bounds.extents.y, -transform.up * hit.distance, Color.red);
+            Debug.DrawRay(transform.position + (col.bounds.extents.x *forwardRaycastMultiplier + col.offset.x ) * currentSide * transform.right + transform.up*col.bounds.extents.y, -transform.up * hit.distance, Color.red);
             Debug.Log(hit.collider.gameObject.name);
 #endif
 
@@ -115,7 +121,7 @@ public class characterMovement : MonoBehaviour
         else
         {
 #if UNITY_EDITOR
-            Debug.DrawRay(transform.position + transform.up * col.bounds.extents.y+ (col.bounds.extents.x * forwardMultiplier + col.offset.x) * currentSide * transform.right, -transform.up * maxDistance, Color.red);
+            Debug.DrawRay(transform.position + transform.up * col.bounds.extents.y+ (col.bounds.extents.x * forwardRaycastMultiplier + col.offset.x) * currentSide * transform.right, -transform.up * maxDistance, Color.red);
 #endif
             canMoveForward = false;
             onCliff?.Invoke(cliffArgs);
