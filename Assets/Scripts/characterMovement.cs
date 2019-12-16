@@ -82,15 +82,18 @@ public class characterMovement : MonoBehaviour
 #if UNITY_EDITOR
             Debug.DrawRay(transform.position + (col.bounds.extents.x *forwardRaycastMultiplier + col.offset.x ) * currentSide * transform.right + transform.up*col.bounds.extents.y, -transform.up * hit.distance, Color.red);
             Debug.Log(hit.collider.gameObject.name);
+            Debug.Log(hit.distance);
 #endif
 
             if (hit.distance > col.bounds.size.y + raycastDownLeeway)
             {
-                if (hit.distance < maxFallDown + col.bounds.size.y)
+                //Fallable groundCheck
+                if (hit.distance < maxFallDown + col.bounds.size.y && rb.velocity.y == 0)
                 {
 #if UNITY_EDITOR
                     Debug.Log("onFallableGround");
 #endif
+                    fallableArgs.hit = hit;
                     onFallableEdge?.Invoke(fallableArgs);
 
                     if (fallableArgs.willDoSomething)
@@ -103,6 +106,8 @@ public class characterMovement : MonoBehaviour
                 }
                 else
                 {
+                    cliffArgs.hit = hit;
+                    Debug.Log("Over a cliff");
                     canMoveForward = false;
                     onCliff?.Invoke(cliffArgs);
                     if (cliffArgs.willDoSomething)
@@ -112,9 +117,22 @@ public class characterMovement : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(hit.distance < col.bounds.extents.y)
             {
-                canMoveForward = true; 
+                fallableArgs.hit = hit;
+
+
+                onWallHit.Invoke(fallableArgs);
+
+                if (fallableArgs.willDoSomething)
+                {
+                    disabledTime = fallableArgs.timeToWait;
+                    fallableArgs.resetValues();
+                }
+                
+            } else
+            {
+                canMoveForward = true;
             }
 
         }
@@ -143,7 +161,7 @@ public class characterMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        characterRenderer = GetComponent<SpriteRenderer>();
+        characterRenderer = GetComponentInChildren<SpriteRenderer>();
     }
  
     void FixedUpdate()
@@ -172,6 +190,7 @@ public class onSoftEdgeArgs
 
     public void resetValues()
     {
+        hit = new RaycastHit2D();
         timeToWait = 0;
         willDoSomething = false;
     }
@@ -185,6 +204,7 @@ public class onHardEdgeArgs
 
     public void resetValues()
     {
+        hit = new RaycastHit2D();
         timeToWait = 0;
         willDoSomething = false;
     }
