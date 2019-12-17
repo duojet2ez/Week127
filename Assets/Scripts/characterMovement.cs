@@ -26,6 +26,7 @@ public class characterMovement : MonoBehaviour
     #endregion
 
     #region Private Fields
+    [SerializeField] private float jumpForce = 10;
     Collider2D col;
     Rigidbody2D rb;
     SpriteRenderer characterRenderer;
@@ -68,6 +69,11 @@ public class characterMovement : MonoBehaviour
         {
             characterRenderer.flipX = !characterRenderer.flipX;
             currentSide = currentSide * -1;
+        }
+
+        if (Input.GetButtonDown("Jump") && col.IsTouchingLayers(groundLayer))
+        {
+            rb.AddForce(new Vector2(0, jumpForce / Time.fixedDeltaTime));
         }
     }
     private void CheckGround()
@@ -122,7 +128,7 @@ public class characterMovement : MonoBehaviour
                 fallableArgs.hit = hit;
 
 
-                onWallHit.Invoke(fallableArgs);
+                onWallHit?.Invoke(fallableArgs);
 
                 if (fallableArgs.willDoSomething)
                 {
