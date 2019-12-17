@@ -62,7 +62,7 @@ public class playerClimbUpDown : MonoBehaviour
 
     #endregion
     
-#if true
+#if false
     #region Unity API
 
     void Awake()
